@@ -27,7 +27,7 @@
       </el-select>
     </div>
     <el-row :gutter="20" class="list-wrapper">
-      <el-col :md="12" v-for="record in records" :key="record.id">
+      <el-col v-for="record in records" :key="record.id">
         <div class="record-item" :class="{ [getCss(record.time)]: true }">
           <div class="date">
             {{ record.date }}

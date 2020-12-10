@@ -59,7 +59,7 @@ export default {
         {
           icon: 'el-icon-user-solid',
           color: '#34BFA3',
-          title: '宿舍最大人数',
+          title: '最大人数',
           content: `${this.roomInfo.peopleNum}`
         }
       ]
@@ -97,12 +97,14 @@ export default {
       flex-direction: column;
       justify-content: space-between;
       .title {
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 16px;
+        // font-weight: bold;
         margin-bottom: 10px;
       }
       .content {
-        font-size: 26px;
+        font-size: 18px;
+        white-space: nowrap;
+        color: rgb(255, 186, 0);
         /* font-weight: bold; */
       }
     }

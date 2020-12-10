@@ -1,5 +1,5 @@
 module.exports = {
-  title: '高校宿舍可视化管理系统',
+  title: '广财宿舍可视化管理系统',
 
   /**
    * @type {boolean} true | false

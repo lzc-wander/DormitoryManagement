@@ -113,8 +113,10 @@ export default {
     text-align: right;
     color: rgba($color: #000000, $alpha: 0.5);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    // justify-content: space-between;
+    // align-items: center;
+    text-align: right;
   }
 }
 .tips {

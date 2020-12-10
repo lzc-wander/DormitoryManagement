@@ -10,7 +10,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">高校宿舍可视化系统</h3>
+        <h3 class="title">广财宿舍可视化系统</h3>
       </div>
 
       <!-- 学号/职工号 -->
