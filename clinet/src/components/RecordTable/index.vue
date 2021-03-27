@@ -4,7 +4,7 @@
       <i v-if="icon" class="icon" :class="icon"></i> {{ title }}
     </div>
     <div class="table-wrapper">
-      <el-table :data="tableData" style="width: 100%">
+      <el-table :data="tableData" style="width: 100%" border>
         <el-table-column label="姓名">
           <template slot-scope="scope">
             <a @click="gotoStudentInfo(scope.row.userId)">{{
@@ -13,9 +13,12 @@
           </template>
         </el-table-column>
         <el-table-column prop="account" label="学号"> </el-table-column>
+        <!-- <el-table-column prop="college" label="学院"> </el-table-column>
+        <el-table-column prop="major" label="班级"> </el-table-column> -->
         <el-table-column prop="buildingName" label="宿舍楼"> </el-table-column>
-        <el-table-column prop="floorLayer" label="楼层"> </el-table-column>
-        <el-table-column prop="roomNumber" label="宿舍号">
+        <el-table-column prop="floorLayer" label="楼层" width="80">
+        </el-table-column>
+        <el-table-column prop="roomNumber" label="宿舍号" width="80">
           <template slot-scope="scope">
             <a @click="gotoRoomInfo(scope.row.roomId)">{{
               scope.row.roomNumber

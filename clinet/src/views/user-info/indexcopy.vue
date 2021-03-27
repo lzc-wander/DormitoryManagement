@@ -29,11 +29,8 @@
 
     <h1 class="main-title">详细信息</h1>
     <div class="wrapper userInfo-wrapper">
-      <div class="roomInfo-card" v-if="person">
-        <PanelGroup :userInfo="studentInfo" />
-      </div>
-      <el-row :gutter="20" class="top" v-if="person">
-        <el-col :md="24">
+      <!--   <el-row :gutter="20" class="top">
+        <el-col :md="12">
           <div class="userInfo-card">
             <div class="title">用户信息</div>
             <hr />
@@ -50,14 +47,6 @@
               <span>{{ studentInfo.phone }}</span>
             </div>
             <div class="info-item">
-              <label>学院:</label>
-              <span>{{ studentInfo.college }}</span>
-            </div>
-            <div class="info-item">
-              <label>班级:</label>
-              <span>{{ studentInfo.major }}</span>
-            </div>
-            <div class="info-item">
               <label>注册日期:</label>
               <span>{{
                 $moment(studentInfo.createdAt).format('YYYY-MM-DD')
@@ -65,11 +54,13 @@
             </div>
           </div>
         </el-col>
-        <!-- <el-col :md="12"> -->
-
-        <!-- </el-col> -->
-      </el-row>
-      <div class="add" v-if="all">
+        <el-col :md="12">
+          <div class="roomInfo-card">
+            <PanelGroup :userInfo="studentInfo" />
+          </div>
+        </el-col>
+      </el-row> -->
+      <div class="add">
         <el-button type="primary" icon="el-icon-plus" @click="open"
           >添加</el-button
         >
@@ -84,8 +75,6 @@
           'font-weight': '400'
         }"
         border
-        v-loading="loading"
-        v-if="all"
       >
         <el-table-column prop="name" label="姓名" width="80"></el-table-column>
         <el-table-column
@@ -142,14 +131,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <Pagination
-        :total="count"
-        :page="current"
-        @pagination="handlePagination"
-        :hidden="tableData.length === 0"
-        v-if="all"
-      />
-      <div class="bottom main-card" style="margin-top: 20px" v-if="person">
+      <!--  <div class="bottom main-card" style="margin-top: 20px">
         <div class="process-item">
           <span>早起概率：</span>
           <el-progress
@@ -176,7 +158,7 @@
             status="warning"
           ></el-progress>
         </div>
-      </div>
+      </div> -->
     </div>
     <el-dialog
       :title="operateType === 'add' ? '新增学生' : '更改学生信息'"
@@ -219,6 +201,49 @@
             placeholder="请输入"
           ></el-input>
         </el-form-item>
+        <!-- <el-form-item label="宿舍楼"  prop="buildingName">
+        <el-select v-model="groupData.buildingId" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in buildingsData"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          >
+        </el-option>
+       </el-select>
+      </el-form-item>
+      <el-form-item label="楼层"  prop="floorLayer">
+        <el-select
+        v-model="groupData.floorId"
+        placeholder="请选择"
+        :disabled="!groupData.buildingId"
+        clearable
+      >
+          <el-option
+            v-for="item in floorsData"
+            :key="item.id"
+            :label="item.layer"
+            :value="item.id"
+          >
+        </el-option>
+      </el-select>
+      </el-form-item>
+      <el-form-item label="房间号"  prop="roomNumber">
+        <el-select
+        v-model="groupData.roomId"
+        placeholder="请选择"
+        :disabled="!groupData.floorId"
+        clearable
+      >
+          <el-option
+            v-for="item in roomsData"
+            :key="item.id"
+            :label="item.number"
+            :value="item.id"
+          >
+        </el-option>
+      </el-select>
+      </el-form-item> -->
         <el-form-item label="选择想要入住的宿舍" prop="roomId" :required="true">
           <room-selector v-model="formData.roomId"></room-selector>
         </el-form-item>
@@ -233,17 +258,12 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
 import RoomSelector from '@/components/RoomSelector/index'
 import GroupSelector from '@/components/GroupSelector'
 import StudentSearcher from './components/StudentSearcher'
 import PanelGroup from './components/PanelGroup'
 import { getStudents } from '@/api/user'
 import { addStudent } from '@/api/user'
-import { updateStudentInfo } from '@/api/user'
-import { deleteStudent } from '@/api/user'
-import { getAllStudents } from '@/api/user'
-import { getSearchStudents } from '@/api/user'
 import { getManageBuildings } from '@/api/building'
 import { getFloors } from '@/api/floor'
 import { getRooms } from '@/api/room'
@@ -254,8 +274,7 @@ export default {
     GroupSelector,
     StudentSearcher,
     PanelGroup,
-    RoomSelector,
-    Pagination
+    RoomSelector
   },
   data() {
     return {
@@ -265,9 +284,12 @@ export default {
         roomId: null,
         userId: null
       },
-      loading: false,
-      all: true,
-      person: false,
+      groupData: {
+        buildingId: null,
+        floorId: null,
+        roomId: null,
+        userId: null
+      },
       buildingsData: [],
       floorsData: [],
       roomsData: [],
@@ -276,113 +298,91 @@ export default {
       formData: {
         name: '',
         account: '',
-        password: '',
+        password: '123456',
         phone: '',
         college: '',
         major: '',
-        roomId: null,
-        checkTime: new Date().valueOf()
+        roomId: null
       },
       operateType: 'add',
       current: 1,
-      count: 0,
-      step: 5,
+      step: 10,
       searchOption: {},
       searchContent: '',
       studentInfo: {}
     }
   },
   methods: {
-    //分页
-    handlePagination({ page, limit }) {
-      this.current = page
-      this.step = limit
-      this.searchStudentInfo()
-    },
-    async getAllStudents() {
-      this.loading = true
-      let params = {}
-      params.step = this.step
-      params.current = this.current
-      console.log('', params)
-      await getAllStudents(params).then(res => {
-        this.tableData = res.data.result.rows
-        this.count = res.data.result.count
-        this.loading = false
-      })
-    },
     //级联搜索
-    async searchStudentInfo() {
-      this.all = true
-      this.person = false
-      this.loading = true
+    searchStudentInfo() {
       this.searchOption = this.selectorData
       this.searchOption.current = this.current
       this.searchOption.step = this.step
-      getSearchStudents(this.searchOption).then(res => {
-        let result = res.data.result.rows
-        this.count = res.data.result.count
+      getStudents(this.searchOption).then(res => {
+        let result = res.data.users
         if (result instanceof Array) {
           this.tableData = result
         } else {
           this.tableData = [result]
         }
-        this.loading = false
+        console.log('wwww', this.tableData)
       })
     },
     fetchUserInfo(type, value) {
       getStudentInfoByIdOrAccount({ type, value }).then(res => {
-        this.person = true
-        this.all = false
         this.studentInfo = res.data
       })
     },
     open() {
       this.dialogVisible = true
       this.operateType = 'add'
-      this.$nextTick(() => {
-        this.$refs.form.clearValidate()
-      })
     },
     //修改学生信息
     handleEdit(row) {
       this.operateType = 'update'
       this.dialogVisible = true
-      console.log('wwww', row)
-      this.$nextTick(() => {
-        this.formData = JSON.parse(JSON.stringify(row))
-        this.formData.password = ''
-      })
-      this.formData.roomId = row.roomId
-      console.log('', this.formData.roomId)
+      this.formData = JSON.parse(JSON.stringify(row))
+      console.log('aa', row)
+      this.groupData.floorId = row.floorId
+      this.groupData.buildingId = row.buildingId
+      this.groupData.roomId = row.roomId
+      console.log('da', this.groupData.floorId)
+      console.log('ssss', this.groupData)
     },
     // 删除学生
-    handleDelete(row) {
-      this.$confirm(`确认要删除 “${row.name}” 学生吗`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        deleteStudent(row).then(res => {
-          console.log(res)
-          this.$message({ type: 'success', message: '删除成功！' })
-          this.searchStudentInfo().then(() => {
-            this.$message.success('数据已更新')
-          })
-        })
-      })
-    },
+    handleDelete(row) {},
     close() {
-      //重置表单
       this.dialogVisible = false
+      //重置表单
       this.$refs.form.resetFields()
     },
     saveStudent() {
       if (this.operateType == 'add') {
         this.$refs.form.validate(result => {
           if (result) {
+            /*  console.log('aa',this.buildingsData);
+          
+          this.buildingsData.map(item => {
+            if(item.id == this.groupData.buildingId)
+            this.formData.buildingName = item.name
+            return item
+          })
+          console.log('bb',this.floorsData);
+          
+          this.floorsData.map(item => {
+          if(item.id == this.groupData.floorId)
+          this.formData.floorLayer = item.layer
+            return item
+          })
+          console.log('aaaa',this.roomsData);
+          console.log('bbbb',this.groupData);
+          this.roomsData.map(item => {
+          if(item.id == this.groupData.roomId)
+          this.formData.roomNumber = item.number
+            return item
+          }) */
             addStudent(this.formData).then(() => {
-              this.$message.success('新增学生成功')
+              this.$message.success('注册管理员成功')
               this.$refs.form.resetFields()
               this.searchStudentInfo().then(() => {
                 this.$message.success('数据已更新')
@@ -396,10 +396,10 @@ export default {
       } else {
         this.$refs.form.validate(result => {
           if (result) {
-            updateStudentInfo(this.formData).then(() => {
-              this.$message.success('修改学生成功')
+            updateAdminInfo(this.formData).then(() => {
+              this.$message.success('修改管理员成功')
               this.$refs.form.resetFields()
-              this.searchStudentInfo().then(() => {
+              this.fetchAdminTableData().then(() => {
                 this.$message.success('数据已更新')
               })
             })
@@ -409,13 +409,44 @@ export default {
           }
         })
       }
+    },
+    async fetchBuildingsData() {
+      getManageBuildings().then(res => {
+        this.buildingsData = res.data.buildings
+      })
+    },
+    async fetchFloorsData() {
+      getFloors({ buildingId: this.groupData.buildingId }).then(res => {
+        this.floorsData = res.data.floors
+      })
+    },
+    async fetchRoomsData() {
+      getRooms({ floorId: this.groupData.floorId }).then(res => {
+        this.roomsData = res.data.rooms
+      })
+    }
+  },
+  watch: {
+    'groupData.buildingId': function() {
+      this.groupData.floorId = null
+      this.groupData.roomId = null
+      this.groupData.userId = null
+      this.fetchFloorsData()
+    },
+    'groupData.floorId': function() {
+      this.groupData.roomId = null
+      this.groupData.userId = null
+      this.fetchRoomsData()
+    },
+    'groupData.roomId': function() {
+      this.groupData.userId = null
     }
   },
   mounted() {
     if (this.$route.query.userId) {
       this.fetchUserInfo('id', this.$route.query.userId)
     }
-    this.getAllStudents()
+    this.fetchBuildingsData()
   }
 }
 </script>
@@ -423,9 +454,6 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   margin: 40px 0;
-}
-/deep/.el-cascader {
-  display: block;
 }
 .add {
   margin-top: 10px;
@@ -449,7 +477,7 @@ export default {
 
 .userInfo-wrapper {
   margin-bottom: 30px;
-  margin-top: 20px;
+  margin-top: 10px;
   .top {
     .roomInfo-card {
       background-color: #fff;
@@ -458,7 +486,7 @@ export default {
     .userInfo-card {
       background-color: #fff;
       padding: 30px;
-      height: 280px;
+      height: 223px;
       box-sizing: content-box;
       .title {
         font-weight: bold;

@@ -1,7 +1,7 @@
 <template>
   <div id="BuildingAddForm" class="main-card">
     <el-form class="form" :inline="true" ref="form" :model="formData">
-      <el-form-item label="宿舍楼名" required prop="name">
+      <el-form-item label="宿舍楼名" required prop="name" style="width:40%">
         <el-input v-model.trim="formData.name" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="楼层数" required prop="floorCount">
@@ -18,11 +18,11 @@
           :max="99"
         ></el-input-number>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">创建</el-button>
+        <el-button type="danger" @click="clean">清空</el-button>
+      </el-form-item>
     </el-form>
-    <div class="btn-wrapper">
-      <el-button type="danger" @click="clean">清空</el-button>
-      <el-button type="primary" @click="onSubmit">创建</el-button>
-    </div>
   </div>
 </template>
 

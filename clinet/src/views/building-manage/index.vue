@@ -206,6 +206,7 @@ export default {
     },
     handleDelete(building) {
       this.selected = building
+      console.log('wwww', building)
       this.$confirm(`确认要删除 “${this.selected.name}” 宿舍吗`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

@@ -7,6 +7,7 @@ class Db {
   }
   _connect() {
     const { host, name, user, password } = databaseConfig
+    //连接到数据库
     const sequelize = new Sequelize(name, user, password, {
       host: host,
       dialect: "mysql",

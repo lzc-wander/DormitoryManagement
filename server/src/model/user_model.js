@@ -42,6 +42,12 @@ User.init(
     name: {
       type: DataTypes.STRING
     },
+    college: {
+      type: DataTypes.STRING
+    },
+    major: {
+      type: DataTypes.STRING
+    },
     phone: {
       type: DataTypes.STRING
     },

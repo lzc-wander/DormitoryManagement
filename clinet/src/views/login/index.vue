@@ -27,6 +27,7 @@
           tabindex="1"
           autocomplete="on"
         />
+        <!-- onkeyup="value=value.replace(/[^\d]/g,'')" -->
       </el-form-item>
       <!-- 学号/职工号 -->
 
@@ -252,7 +253,10 @@ $cursor: #fff;
     color: $cursor;
   }
 }
-
+.loginimg {
+  width: 100%;
+  height: 100%;
+}
 /* reset element-ui css */
 .login-container {
   .el-input {
@@ -295,6 +299,9 @@ $light_gray: #eee;
   min-height: 100%;
   width: 100%;
   background-color: $bg;
+  /* background-image: url('./guangcai.jpg');
+  // background-size: 1260px 580px;
+  background-size: 100% 100%; */
   overflow: hidden;
 
   .login-form {

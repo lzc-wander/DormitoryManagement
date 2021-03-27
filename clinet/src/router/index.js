@@ -126,6 +126,24 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/repairRecord',
+    component: Layout,
+    meta: {
+      roles: ['student']
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/repair-record/index'),
+        name: 'repairRecord',
+        meta: {
+          title: '维修记录',
+          icon: 'bug'
+        }
+      }
+    ]
+  },
   //  管理员路由 =========================
   {
     path: '/adminManage',

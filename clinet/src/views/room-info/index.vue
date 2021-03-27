@@ -128,6 +128,7 @@ export default {
             roomId: this.roomInfo.id
           }).then(() => {
             this.$message.success('发布成功')
+            this.$refs.evaluateForm.resetFields()
             this.fetchRoomInfo(this.roomInfo.id)
           })
         } else {

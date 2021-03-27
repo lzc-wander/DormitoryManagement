@@ -11,7 +11,17 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="联系电话" prop="phone" :required="true">
-        <el-input v-model="form.phone"></el-input>
+        <el-input
+          v-model="form.phone"
+          onkeyup="value=value.replace(/[^\d]/g,'')"
+          maxlength="11"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="学院" prop="college" :required="true">
+        <el-input v-model="form.college"></el-input>
+      </el-form-item>
+      <el-form-item label="专业" prop="major" :required="true">
+        <el-input v-model="form.major"></el-input>
       </el-form-item>
       <el-form-item label="选择想要入住的宿舍" prop="roomId" :required="true">
         <room-selector v-model="form.roomId"></room-selector>
@@ -38,6 +48,8 @@ export default {
       form: {
         name: '',
         phone: '',
+        college: '',
+        major: '',
         roomId: null
       },
       buildingId: null,
@@ -82,6 +94,8 @@ export default {
         updateInfo({
           name: this.form.name,
           phone: this.form.phone,
+          college: this.form.college,
+          major: this.form.major,
           roomId: this.form.roomId,
           checkTime: new Date().valueOf()
         })

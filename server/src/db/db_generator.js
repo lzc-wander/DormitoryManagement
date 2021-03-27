@@ -10,6 +10,7 @@ const Floor = require("../model/floor_model")
 const Building = require("../model/building_model")
 const Cleaner = require("../model/cleaner_model")
 const Evaluate = require("../model/evaluate_model")
+const Repair = require("../model/repair_model")
 
 // 创建表关系
 User.hasMany(Token)
@@ -17,6 +18,7 @@ User.hasMany(CleanRecord)
 User.hasMany(BackRecord)
 User.hasMany(GetupRecord)
 User.hasMany(Evaluate)
+User.hasMany(Repair)
 User.belongsTo(Room)
 
 Room.hasMany(User)
@@ -24,11 +26,15 @@ Room.hasMany(CleanRecord)
 Room.hasMany(BackRecord)
 Room.hasMany(GetupRecord)
 Room.hasMany(Evaluate)
+Room.hasMany(Repair)
 Room.belongsTo(Floor)
 Room.belongsTo(Building)
 
 Evaluate.belongsTo(User)
 Evaluate.belongsTo(Room)
+
+Repair.belongsTo(User)
+Repair.belongsTo(Room)
 
 CleanRecord.belongsTo(User)
 CleanRecord.belongsTo(Room)
@@ -145,7 +151,7 @@ async function createDefaultData() {
 
 module.exports = function() {
   // 同步表数据
-  console.log("DataBase Syncing ... ...")
+  console.log("DataBase Syncing ... ...(正在同步)")
   db.sequelize
     .sync({
       force: databaseConfig.rebuild
@@ -156,6 +162,6 @@ module.exports = function() {
       }
     })
     .then(() => {
-      console.log("DataBase Sync done")
+      console.log("DataBase Sync done(同步完成)")
     })
 }

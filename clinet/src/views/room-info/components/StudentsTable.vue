@@ -8,6 +8,8 @@
       </el-table-column>
       <el-table-column prop="account" label="学号"></el-table-column>
       <el-table-column prop="phone" label="电话号"></el-table-column>
+      <el-table-column prop="college" label="学院"></el-table-column>
+      <el-table-column prop="major" label="专业"></el-table-column>
       <el-table-column label="入住时间">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>

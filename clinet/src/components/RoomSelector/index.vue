@@ -63,6 +63,7 @@ export default {
               item.label = item.number
               item.disabled = item.isFull || item.status === 0
               item.leaf = true
+              console.log('ddd', item.leaf)
             })
             resolve(rooms)
           })

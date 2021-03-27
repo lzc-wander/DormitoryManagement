@@ -13,7 +13,12 @@ router.get("/getFloors", async ctx => {
     data: { floors }
   })
 })
-
+router.get("/getAllFloors", async ctx => {
+  const floors = await Floor.findAll()
+  ctx.body = new ResBody({
+    data: { floors }
+  })
+})
 router.get("/getFloorsDetail", async ctx => {
   const { buildingId } = ctx.request.query
   const floors = await Floor.findAll({

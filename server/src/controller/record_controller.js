@@ -473,6 +473,7 @@ module.exports = {
     const getStudentInfo = require("./user_controller").getStudentInfo
     let rows = []
     for (let record of result.rows) {
+      // console.log('kkk',record.userId);
       record = record.toJSON()
       delete record.room
       const userInfo = await getStudentInfo(record.userId)

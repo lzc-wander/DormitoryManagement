@@ -20,12 +20,9 @@
         </el-date-picker>
       </div>
       <div class="btn-wrapper">
-        <el-button
-          @click="handleSubmit"
-          type="primary"
-          icon="el-icon-search"
-          circle
-        ></el-button>
+        <el-button @click="handleSubmit" type="primary" icon="el-icon-search"
+          >搜索</el-button
+        >
       </div>
     </div>
   </div>
@@ -108,13 +105,8 @@ export default {
   }
   .btn-wrapper {
     position: absolute;
-    right: 30px;
-    bottom: -25px;
-    .el-button {
-      width: 50px;
-      height: 50px;
-      box-shadow: 0 3px 5px rgba($color: #000000, $alpha: 0.2);
-    }
+    right: 300px;
+    top: 75px;
   }
 }
 </style>

@@ -8,10 +8,12 @@ module.exports = {
    * @param {Number} userId
    */
   async getStudentInfo(userId) {
+    // console.log('131231',userId,typeof(userId));
     const student = await User.findOne({
       where: { id: userId },
       attributes: { exclude: ["password", "deletedAt"] }
     })
+    // console.log('wadwqwq',student);
     const room = await student.getRoom()
     const floor = await room.getFloor()
     const building = await floor.getBuilding()
@@ -36,13 +38,13 @@ module.exports = {
    * @param {Array} users
    */
   async getStudentsInfo(users) {
-    const cloneUsers = _.cloneDeep(users)
+    const cloneUsers = _.cloneDeep(users) //借助lodash深拷贝users,防止删除了真实标的内容
     for (let user of cloneUsers) {
       delete user.dataValues.password
       delete user.dataValues.deletedAt
-      const room = await user.getRoom()
-      const floor = await room.getFloor()
-      const building = await floor.getBuilding()
+      const room = await user.getRoom()  //获取room表的数据
+      const floor = await room.getFloor() //获取floor表的数据
+      const building = await floor.getBuilding() //获取building表的数据
       Object.assign(user.dataValues, {
         roomNumber: room.number,
         floorId: floor.id,

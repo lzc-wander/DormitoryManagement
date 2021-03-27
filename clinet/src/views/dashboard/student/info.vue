@@ -42,6 +42,7 @@ export default {
   mounted() {
     getStudents({ roomId: this.$store.getters.room.id }).then(res => {
       this.studentsData = res.data.users
+      console.log('aa', res.data.users)
     })
     getEvaluates({ roomId: this.$store.getters.room.id }).then(res => {
       this.evaluatesData = res.data.evaluates

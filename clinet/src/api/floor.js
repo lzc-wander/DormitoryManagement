@@ -7,7 +7,13 @@ export function getFloors(params) {
     params
   })
 }
-
+//获取所有的楼层信息
+export function getAllFloors() {
+  return request({
+    url: '/floor/getAllFloors',
+    method: 'get'
+  })
+}
 export function getFloorsDetail(buildingId) {
   return request({
     url: '/floor/getFloorsDetail',

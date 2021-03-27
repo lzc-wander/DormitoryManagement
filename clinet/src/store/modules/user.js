@@ -7,6 +7,8 @@ const state = {
   allUserInfo: {},
   token: getToken(), // 由 cookie 获取 token
   name: '',
+  college: '',
+  major: '',
   avatar: '',
   introduction: '',
   roles: [],
@@ -26,6 +28,12 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
+  },
+  SET_COLLEGE: (state, college) => {
+    state.name = college
+  },
+  SET_MAJOR: (state, major) => {
+    state.name = major
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -79,7 +87,16 @@ const actions = {
           }
 
           data.roles = [data.role]
-          const { roles, name, avatar, room, floor, building } = data
+          const {
+            roles,
+            name,
+            college,
+            major,
+            avatar,
+            room,
+            floor,
+            building
+          } = data
 
           // 服务器端返回的角色必须是一个数组
           if (!roles || roles.length <= 0) {
@@ -93,6 +110,8 @@ const actions = {
             'SET_AVATAR',
             avatar || 'http://study.esunr.xyz/1582549904311.png'
           )
+          commit('SET_COLLEGE', college)
+          commit('SET_MAJOR', major)
           commit('SET_ROOM', room)
           commit('SET_FLOOR', floor)
           commit('SET_BUILDING', building)

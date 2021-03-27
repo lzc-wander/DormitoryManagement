@@ -4,7 +4,7 @@
  * 关闭 devMode 后，Token 会验证有效性，防止 Token 泛滥
  */
 const sysConfig = {
-  devMode: false, // 是否开启开发模式
+  devMode: true, // 是否开启开发模式
   port: 8080,
   pwdSaltRound: 10,
   tokenSalt: "awsl",

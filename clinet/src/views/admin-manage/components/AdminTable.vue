@@ -1,7 +1,16 @@
 <template>
   <div calss="AdminTable">
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="name" label="姓名"> </el-table-column>
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      border
+      :header-cell-style="{
+        'background-color': '#eee',
+        color: '#000',
+        'font-weight': '400'
+      }"
+    >
+      <el-table-column prop="name" label="姓名" width="100"> </el-table-column>
       <el-table-column prop="account" label="工号"> </el-table-column>
       <el-table-column prop="phone" label="手机号"> </el-table-column>
       <el-table-column label="身份">
@@ -26,6 +35,14 @@
           </div>
         </template>
       </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
+            >删除</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -40,6 +57,15 @@ export default {
     tableData: {
       type: Array,
       default: () => []
+    }
+  },
+  methods: {
+    //把row的值传给父组件
+    handleEdit(row) {
+      this.$emit('edit', row)
+    },
+    handleDelete(row) {
+      this.$emit('del', row)
     }
   }
 }
@@ -61,6 +87,7 @@ export default {
     margin: 5px 10px;
   }
 }
+
 .all-room {
   color: rgba($color: #000000, $alpha: 0.3);
 }

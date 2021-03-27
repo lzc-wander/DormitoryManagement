@@ -4,7 +4,7 @@
       <el-col
         v-for="(item, index) in panelData"
         :key="index"
-        :sm="24 / (panelData.length / 2)"
+        :sm="24 / panelData.length"
       >
         <div class="group-item-wrapper">
           <div class="icon-wrapper">
@@ -106,7 +106,9 @@ export default {
         margin-bottom: 10px;
       }
       .content {
-        font-size: 26px;
+        font-size: 18px;
+        white-space: nowrap;
+        color: rgb(255, 186, 0);
         /* font-weight: bold; */
       }
     }

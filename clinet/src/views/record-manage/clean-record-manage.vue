@@ -38,7 +38,7 @@ export default {
       searchOption: {},
       current: 1,
       count: 0,
-      step: 10,
+      step: 5,
       tableData: []
     }
   },
@@ -62,6 +62,9 @@ export default {
       this.step = limit
       this.fetchTableData()
     }
+  },
+  mounted() {
+    this.fetchTableData()
   }
 }
 </script>
