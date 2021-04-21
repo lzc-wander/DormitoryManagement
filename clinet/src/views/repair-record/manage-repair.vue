@@ -38,9 +38,13 @@
         <el-table-column prop="detail" label="报修详情" show-overflow-tooltip>
         </el-table-column>
         <el-table-column prop="type" label="维修类型" width="80">
-           <template slot-scope="scope">   
-            <div :style="{'color':scope.row.type=='紧急维修'?'red':'blue'}">{{scope.row.type}}</div>           
-          </template>        
+          <template slot-scope="scope">
+            <div
+              :style="{ color: scope.row.type == '紧急维修' ? 'red' : 'blue' }"
+            >
+              {{ scope.row.type }}
+            </div>
+          </template>
         </el-table-column>
         <el-table-column prop="buildingName" label="宿舍楼"> </el-table-column>
         <!-- <el-table-column prop="floorLayer" label="楼层" width="50"></el-table-column> -->
@@ -59,20 +63,21 @@
         </el-table-column>
         <!-- <el-table-column prop="status" label="状态" width="80">
         </el-table-column> -->
-        <el-table-column label="状态" width=120px>
+        <el-table-column label="状态" width="120px">
           <template slot-scope="scope">
-                  <el-switch
-                    v-model="scope.row.status"
-                    inactive-text="待处理"
-                    active-text="已完成"
-                    :active-value="2"
-                    :inactive-value="1"
-                    active-color="#B9B9B9"
-                    inactive-color="red"
-                    @change="changeSwitch(scope.row)"/>
+            <el-switch
+              v-model="scope.row.status"
+              inactive-text="待处理"
+              active-text="已完成"
+              :active-value="2"
+              :inactive-value="1"
+              active-color="#B9B9B9"
+              inactive-color="red"
+              @change="changeSwitch(scope.row)"
+            />
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed='right' width="150">
+        <el-table-column label="操作" fixed="right" width="150">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.row)"
               >编辑</el-button
@@ -86,7 +91,7 @@
           </template>
         </el-table-column>
       </el-table>
-        <Pagination
+      <Pagination
         :total="count"
         :page="current"
         @pagination="handlePagination"
@@ -181,7 +186,7 @@ export default {
     }
   },
   methods: {
-     handlePagination({ page, limit }) {
+    handlePagination({ page, limit }) {
       this.current = page
       this.step = limit
       this.fetchTableData()
@@ -190,13 +195,13 @@ export default {
     queryRepair(searchEntity) {
       searchRepair(searchEntity).then(res => {
         this.tableData = res.data.repairs
-         this.tableData.map(item => {
+        this.tableData.map(item => {
           if (item.type == 1) {
             item.type = '普通维修'
           } else {
             item.type = '紧急维修'
           }
-         /*  if (item.status == 1) {
+          /*  if (item.status == 1) {
             item.status = '待处理'
           } else {
             item.status = '已完成'
@@ -206,10 +211,10 @@ export default {
       })
     },
     changeSwitch(row) {
-      console.log('aaa',row); 
+      console.log('aaa', row)
       updateRepairStatus(row).then(() => {
         this.$message.success('信息同步成功')
-        })
+      })
     },
     //添加报修信息
     open() {
@@ -224,8 +229,8 @@ export default {
     handleEdit(row) {
       this.dialogVisible = true
       this.operateType = 'update'
-      console.log('waaa',row);
-      
+      console.log('waaa', row)
+
       this.$nextTick(() => {
         this.formData = JSON.parse(JSON.stringify(row))
         if (this.formData.type == '普通维修') {
@@ -287,7 +292,7 @@ export default {
           } else {
             item.type = '紧急维修'
           }
-         /*  if (item.status == 1) {
+          /*  if (item.status == 1) {
             item.status = '待处理'
           } else {
             item.status = '已完成'
@@ -297,8 +302,7 @@ export default {
         this.count = res.data.repairs.count
         this.loading = false
       })
-      console.log('yyyy',this.tableData);
-      
+      console.log('yyyy', this.tableData)
     },
     handleDelete(row) {
       this.$confirm(`确认要删除 “${row.goodsName}”的维修吗`, '提示', {
@@ -342,7 +346,7 @@ export default {
 }
 .record-container {
   padding: 50px 60px 0px;
-  margin-bottom: 30px;;
+  margin-bottom: 30px;
 }
 .handle-box {
   width: auto;
@@ -362,7 +366,7 @@ export default {
 .mr10 {
   margin-right: 10px;
 }
-/deep/.el-switch__label--left{
+/deep/.el-switch__label--left {
   position: relative;
   left: 70px;
   color: #fff;
@@ -387,32 +391,32 @@ export default {
   z-index: 1111;
   color: #9c9c9c !important;
 } */
-     /deep/ .el-switch__label {
-            position: absolute;
-            display: none;
-            font-weight:normal;
-        }
-      /deep/ .el-switch__label *{
-            font-size:12px;
-        }
-       /deep/ .el-switch__label--left {
-            z-index: 9;
-            left:22px;
-            color: #fff;
-        }
-       /deep/ .el-switch__label--right {
-            z-index: 9;
-            color: #fff;
-        }
-       /deep/ .el-switch__label.is-active {
-            display: block;
-            height:30px;
-            line-height:30px;
-        }
-   /deep/.el-switch__core {
-      width: 70px !important;
-    }
-   /*  .el-switch,.el-switch__core{
+/deep/ .el-switch__label {
+  position: absolute;
+  display: none;
+  font-weight: normal;
+}
+/deep/ .el-switch__label * {
+  font-size: 12px;
+}
+/deep/ .el-switch__label--left {
+  z-index: 9;
+  left: 22px;
+  color: #fff;
+}
+/deep/ .el-switch__label--right {
+  z-index: 9;
+  color: #fff;
+}
+/deep/ .el-switch__label.is-active {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+}
+/deep/.el-switch__core {
+  width: 70px !important;
+}
+/*  .el-switch,.el-switch__core{
         height:30px;
         line-height:30px;
     }

@@ -222,13 +222,15 @@ export default {
           register({
             account: this.loginForm.account,
             password: this.loginForm.password
-          }).then(() => {
-            this.$message({ message: '注册成功', type: 'success' })
-            this.loading = false
-            this.registerMode = false
-          }).catch(()=>{
-            this.loading = false
           })
+            .then(() => {
+              this.$message({ message: '注册成功', type: 'success' })
+              this.loading = false
+              this.registerMode = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           console.log('error submit!!')
           return false

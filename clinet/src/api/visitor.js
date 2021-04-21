@@ -1,13 +1,7 @@
 import request from '@/utils/request'
 
 //新增维修信息
-export function addVisitor({
-  visitorname,
-  IDcard,
-  name,
-  phone, 
-  startTime })
-  {
+export function addVisitor({ visitorname, IDcard, name, phone, startTime }) {
   return request({
     url: '/visitor/addVisitor',
     method: 'post',
@@ -19,7 +13,7 @@ export function addVisitor({
       startTime
     }
   })
-  }
+}
 // 获取维修信息
 export function getVisitors({ current, step }) {
   const data = { current, step }
@@ -35,8 +29,9 @@ export function updateVisitorInfo({
   visitorname,
   IDcard,
   name,
-  phone, 
-  startTime }) {
+  phone,
+  startTime
+}) {
   return request({
     url: '/visitor/updateVisitorInfo',
     method: 'post',
@@ -44,8 +39,9 @@ export function updateVisitorInfo({
       visitorname,
       IDcard,
       name,
-      phone, 
-      startTime }
+      phone,
+      startTime
+    }
   })
 }
 

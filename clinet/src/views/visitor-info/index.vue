@@ -39,7 +39,8 @@
         </el-table-column>
         <el-table-column prop="IDcard" label="身份证号" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="buildingName" label="到访宿舍楼"> </el-table-column>
+        <el-table-column prop="buildingName" label="到访宿舍楼">
+        </el-table-column>
         <!-- <el-table-column prop="floorLayer" label="楼层" width="50"></el-table-column> -->
         <el-table-column prop="roomNumber" label="宿舍号"> </el-table-column>
         <el-table-column prop="name" label="受访人" width="80">
@@ -54,7 +55,7 @@
         </el-table-column>
         <el-table-column prop="time" label="时间" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column label="操作" fixed='right' width="150">
+        <el-table-column label="操作" fixed="right" width="150">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.row)"
               >编辑</el-button
@@ -146,18 +147,18 @@ export default {
         IDcard: '',
         name: '',
         phone: '',
-        startTime: new Date().valueOf(),
+        startTime: new Date().valueOf()
       },
       operateType: 'add',
       dialogVisible: false,
       current: 1,
       step: 5,
-      count:0,
+      count: 0,
       loading: false
     }
   },
   methods: {
-      handlePagination({ page, limit }) {
+    handlePagination({ page, limit }) {
       this.current = page
       this.step = limit
       this.fetchTableData()
@@ -169,10 +170,10 @@ export default {
       })
     },
     changeSwitch(row) {
-      console.log('aaa',row); 
+      console.log('aaa', row)
       updateRepairStatus(row).then(() => {
         this.$message.success('信息同步成功')
-        })
+      })
     },
     //添加访客信息
     open() {
@@ -281,7 +282,7 @@ export default {
 }
 .record-container {
   padding: 50px 60px 0px;
-  margin-bottom: 30px;;
+  margin-bottom: 30px;
 }
 .handle-box {
   width: auto;
@@ -301,7 +302,7 @@ export default {
 .mr10 {
   margin-right: 10px;
 }
-/deep/.el-switch__label--left{
+/deep/.el-switch__label--left {
   position: relative;
   left: 70px;
   color: #fff;
@@ -326,32 +327,32 @@ export default {
   z-index: 1111;
   color: #9c9c9c !important;
 } */
-     /deep/ .el-switch__label {
-            position: absolute;
-            display: none;
-            font-weight:normal;
-        }
-      /deep/ .el-switch__label *{
-            font-size:12px;
-        }
-       /deep/ .el-switch__label--left {
-            z-index: 9;
-            left:22px;
-            color: #fff;
-        }
-       /deep/ .el-switch__label--right {
-            z-index: 9;
-            color: #fff;
-        }
-       /deep/ .el-switch__label.is-active {
-            display: block;
-            height:30px;
-            line-height:30px;
-        }
-   /deep/.el-switch__core {
-      width: 70px !important;
-    }
-   /*  .el-switch,.el-switch__core{
+/deep/ .el-switch__label {
+  position: absolute;
+  display: none;
+  font-weight: normal;
+}
+/deep/ .el-switch__label * {
+  font-size: 12px;
+}
+/deep/ .el-switch__label--left {
+  z-index: 9;
+  left: 22px;
+  color: #fff;
+}
+/deep/ .el-switch__label--right {
+  z-index: 9;
+  color: #fff;
+}
+/deep/ .el-switch__label.is-active {
+  display: block;
+  height: 30px;
+  line-height: 30px;
+}
+/deep/.el-switch__core {
+  width: 70px !important;
+}
+/*  .el-switch,.el-switch__core{
         height:30px;
         line-height:30px;
     }

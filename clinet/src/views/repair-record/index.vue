@@ -38,9 +38,13 @@
         <el-table-column prop="detail" label="报修详情" show-overflow-tooltip>
         </el-table-column>
         <el-table-column prop="type" label="维修类型" width="80">
-          <template slot-scope="scope">   
-            <div :style="{'color':scope.row.type=='紧急维修'?'red':'blue'}">{{scope.row.type}}</div>           
-          </template>          
+          <template slot-scope="scope">
+            <div
+              :style="{ color: scope.row.type == '紧急维修' ? 'red' : 'blue' }"
+            >
+              {{ scope.row.type }}
+            </div>
+          </template>
         </el-table-column>
         <!-- <el-table-column prop="roomId" label="宿舍号"> </el-table-column> -->
         <el-table-column prop="name" label="报修人" width="80">
@@ -56,9 +60,15 @@
           </template>
         </el-table-column>
         <el-table-column prop="status" label="状态" width="80">
-           <template slot-scope="scope">   
-            <div :style="{'color':scope.row.status=='已完成'?'#B9B9B9':'red'}">{{scope.row.status}}</div>           
-          </template>       
+          <template slot-scope="scope">
+            <div
+              :style="{
+                color: scope.row.status == '已完成' ? '#B9B9B9' : 'red'
+              }"
+            >
+              {{ scope.row.status }}
+            </div>
+          </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -74,7 +84,7 @@
           </template>
         </el-table-column>
       </el-table>
-       <Pagination
+      <Pagination
         :total="count"
         :page="current"
         @pagination="handlePagination"
@@ -168,7 +178,7 @@ export default {
     }
   },
   methods: {
-     handlePagination({ page, limit }) {
+    handlePagination({ page, limit }) {
       this.current = page
       this.step = limit
       this.fetchTableData()
@@ -177,7 +187,7 @@ export default {
     queryRepair(searchEntity) {
       searchRepair(searchEntity).then(res => {
         this.tableData = res.data.repairs
-         this.tableData.map(item => {
+        this.tableData.map(item => {
           if (item.type == 1) {
             item.type = '普通维修'
           } else {

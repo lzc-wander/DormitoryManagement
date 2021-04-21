@@ -4,7 +4,11 @@
       <el-input v-model.trim="name" />
     </el-form-item>
     <el-form-item label="手机号">
-      <el-input v-model.trim="phone"   onkeyup="value=value.replace(/[^\d]/g,'')"  maxlength="11"/>
+      <el-input
+        v-model.trim="phone"
+        onkeyup="value=value.replace(/[^\d]/g,'')"
+        maxlength="11"
+      />
     </el-form-item>
     <el-form-item label="新密码">
       <el-input v-model.trim="password" />
