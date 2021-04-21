@@ -191,6 +191,7 @@ export default {
         this.$refs.password.focus()
       })
     },
+    // 登录功能
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -213,6 +214,7 @@ export default {
         }
       })
     },
+    // 注册功能
     handleRegister() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -224,6 +226,8 @@ export default {
             this.$message({ message: '注册成功', type: 'success' })
             this.loading = false
             this.registerMode = false
+          }).catch(()=>{
+            this.loading = false
           })
         } else {
           console.log('error submit!!')

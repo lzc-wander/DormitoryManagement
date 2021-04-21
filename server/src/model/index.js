@@ -9,5 +9,6 @@ module.exports = {
   Building: require("./building_model"),
   Cleaner: require("./cleaner_model"),
   Evaluate: require("./evaluate_model"),
-  Repair: require("./repair_model")
+  Repair: require("./repair_model"),
+  Visitor: require("./visitor_model")
 }

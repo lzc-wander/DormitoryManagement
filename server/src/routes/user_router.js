@@ -16,7 +16,7 @@ const {
 const utils = require("../utils")
 
 const router = new Router()
-
+// 注册接口数据
 router.post("/register", async ctx => {
   let { account, password } = ctx.request.body
   if ((await User.findByAccount(account)) !== null) {
@@ -291,6 +291,7 @@ router.get("/getAllStudents", async ctx => {
       data: { result }
     })
 })
+// 精准搜索
 router.get("/searchUser", async ctx => {
   const { keywords } = ctx.request.query
   let students = []

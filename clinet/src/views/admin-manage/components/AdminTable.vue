@@ -12,7 +12,7 @@
     >
       <el-table-column prop="name" label="姓名" width="100"> </el-table-column>
       <el-table-column prop="account" label="工号"> </el-table-column>
-      <el-table-column prop="phone" label="手机号"> </el-table-column>
+      <el-table-column prop="phone" label="手机号" > </el-table-column>
       <el-table-column label="身份">
         <template slot-scope="scope">
           <span class="admin" v-if="scope.row.role === 'admin'">{{

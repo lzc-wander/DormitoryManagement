@@ -5,7 +5,7 @@ const {} = require("../controller")
 const utils = require("../utils/index.js")
 
 const router = new Router()
-
+// 添加保洁人员
 router.post("/addCleaner", async ctx => {
   const { name, phone, buildingId } = ctx.request.body
   utils.checkParams({ name, phone, buildingId })

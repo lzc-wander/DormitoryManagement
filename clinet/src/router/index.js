@@ -236,6 +236,24 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/visitorInfo',
+    component: Layout,
+    meta: {
+      roles: ['superAdmin', 'admin']
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/visitor-info/index'),
+        name: 'visitorInfo',
+        meta: {
+          title: '访客信息',
+          icon: 'user'
+        }
+      }
+    ]
+  },
+  {
     path: '/recordManage',
     component: Layout,
     meta: {
@@ -271,8 +289,26 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/repairManage',
+    component: Layout,
+    meta: {
+      roles: ['superAdmin', 'admin']
+    },
+    children: [
+      {
+        path: 'manage-repair',
+        component: () => import('@/views/repair-record/manage-repair'),
+        name: 'repairManage',
+        meta: {
+          title: '维修管理',
+          icon: 'bug'
+        }
+      }
+    ]
+  },
   // 404 页面要在最后引入
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/dashboard', hidden: true }
 ]
 
 const createRouter = () =>

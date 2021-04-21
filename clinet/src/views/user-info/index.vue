@@ -205,6 +205,8 @@
           <el-input
             v-model.trim="formData.phone"
             placeholder="请输入"
+            onkeyup="value=value.replace(/[^\d]/g,'')"
+            maxlength="11"
           ></el-input>
         </el-form-item>
         <el-form-item label="学院" required prop="college">
@@ -330,6 +332,7 @@ export default {
         this.loading = false
       })
     },
+    // 按学号或者姓名精确搜索
     fetchUserInfo(type, value) {
       getStudentInfoByIdOrAccount({ type, value }).then(res => {
         this.person = true

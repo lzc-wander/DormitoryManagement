@@ -21,7 +21,7 @@ router.get("/getEvaluates", async ctx => {
     data: { evaluates: await EvaluateController.getEvaluatesInfo(evaluates) }
   })
 })
-
+// 发表评价
 router.post("/addEvaluate", async ctx => {
   const { userId } = ctx.state.user
   const { note, score, roomId } = ctx.request.body

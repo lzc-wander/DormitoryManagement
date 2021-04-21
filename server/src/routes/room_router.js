@@ -28,7 +28,7 @@ router.get("/getRooms", async ctx => {
     data: { rooms }
   })
 })
-
+// 获取宿舍信息
 router.get("/getRoomInfo", async ctx => {
   const { roomId } = ctx.request.query
   const roomInfo = await Room.findOne({

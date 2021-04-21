@@ -77,7 +77,14 @@ export function deleteRepair(params) {
     params: params
   })
 }
-
+//管理员修改维修状态
+export function updateRepairStatus(params) {
+  return request({
+    url: '/repair/updateRepairStatus',
+    method: 'post',
+    data: params
+  })
+}
 //查询维修信息
 export function searchRepair(keywords) {
   return request({

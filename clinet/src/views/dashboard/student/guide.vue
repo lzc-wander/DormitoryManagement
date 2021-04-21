@@ -89,6 +89,7 @@ export default {
         }
       })
     },
+    // 提交信息
     submitFormData() {
       return new Promise((resolve, reject) => {
         updateInfo({

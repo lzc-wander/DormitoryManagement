@@ -40,6 +40,7 @@ export default {
     }
   },
   methods: {
+    //添加宿舍楼
     onSubmit() {
       if (this.formData.name) {
         this.$confirm(`确认要添加 ${this.formData.name} 宿舍吗`, '提示', {

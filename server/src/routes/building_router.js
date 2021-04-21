@@ -53,7 +53,7 @@ router.get("/getBuildingInfo", async ctx => {
   ).length
   ctx.body = new ResBody({ data: result })
 })
-
+// 添加宿舍楼
 router.post("/addBuildingWithRoom", async ctx => {
   const { role } = ctx.state.user
   if (role !== "superAdmin") {

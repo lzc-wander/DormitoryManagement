@@ -31,6 +31,17 @@ router.get("/getRepairs", async ctx => {
     offset: step * (current - 1),
     order: [["createdAt", "DESC"]]
   })
+  // console.log('wa',repairs.rows);
+  const getStudentInfo = require("../controller/user_controller").getStudentInfo
+    let rows = []
+    for (let user of repairs.rows) {
+      user = user.toJSON()
+      delete user.room
+      const userInfo = await getStudentInfo(user.userId)
+      user = Object.assign(userInfo, user)
+      rows.push(user)
+    }
+    repairs.rows = rows
   }
   ctx.body = new ResBody({ data: { repairs, total: repairs.length } })
 })
@@ -47,6 +58,16 @@ router.post("/updateRepairInfo", async ctx => {
   }
   ctx.body = new ResBody({ data: await repair.save() })
 })
+
+// 管理员修改维修状态
+router.post("/updateRepairStatus", async ctx => {
+  const resbody = ctx.request.body
+  const id = resbody.id
+  const repair = await Repair.findOne({ where: { id: id } })
+  repair.status = resbody.status
+   ctx.body = new ResBody({ data: await repair.save() })
+})
+
 // 删除维修信息
 router.delete("/deleteRepair", async ctx => {
   const id  = ctx.request.query.id
@@ -62,10 +83,20 @@ router.delete("/deleteRepair", async ctx => {
     if (keywords.trim()) {
       repairs = await Repair.findAll({
         where: {
-          goodsName: { [Op.like]: `%${keywords}%` },
+          name: { [Op.like]: `%${keywords}%` },
         }
       })
-    }
+      const getStudentInfo = require("../controller/user_controller").getStudentInfo
+      let rows = []
+      for (let user of repairs) {
+        user = user.toJSON()
+        delete user.room
+        const userInfo = await getStudentInfo(user.userId)
+        user = Object.assign(userInfo, user)
+        rows.push(user)
+      }
+      repairs = rows
+    } 
     ctx.body = new ResBody({ data: { repairs, total: repairs.length } })
   })
 module.exports = router.routes()

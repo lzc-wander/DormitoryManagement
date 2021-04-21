@@ -104,6 +104,7 @@ export default {
     }
   },
   methods: {
+    // 获取宿舍信息
     async fetchRoomInfo(roomId) {
       const roomInfo = (await getRoomInfo(roomId)).data
       this.roomInfo = roomInfo
@@ -119,6 +120,7 @@ export default {
         query: { roomId: this.selectorData.roomId }
       })
     },
+    // 发表评分
     handleSubmit() {
       this.$refs.evaluateForm.validate(result => {
         if (result) {

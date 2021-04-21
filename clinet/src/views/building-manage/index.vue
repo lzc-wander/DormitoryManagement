@@ -239,6 +239,7 @@ export default {
         this.fetchAdminTableData()
       })
     },
+    //添加保洁人员
     handleAddCleaner() {
       this.$refs.cleanerForm.validate(valid => {
         if (valid) {

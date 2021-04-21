@@ -11,6 +11,7 @@ const Building = require("../model/building_model")
 const Cleaner = require("../model/cleaner_model")
 const Evaluate = require("../model/evaluate_model")
 const Repair = require("../model/repair_model")
+const Visitor = require("../model/visitor_model")
 
 // 创建表关系
 User.hasMany(Token)
@@ -19,6 +20,7 @@ User.hasMany(BackRecord)
 User.hasMany(GetupRecord)
 User.hasMany(Evaluate)
 User.hasMany(Repair)
+User.hasMany(Visitor)
 User.belongsTo(Room)
 
 Room.hasMany(User)
@@ -27,11 +29,15 @@ Room.hasMany(BackRecord)
 Room.hasMany(GetupRecord)
 Room.hasMany(Evaluate)
 Room.hasMany(Repair)
+Room.hasMany(Visitor)
 Room.belongsTo(Floor)
 Room.belongsTo(Building)
 
 Evaluate.belongsTo(User)
 Evaluate.belongsTo(Room)
+
+Visitor.belongsTo(User)
+Visitor.belongsTo(Room)
 
 Repair.belongsTo(User)
 Repair.belongsTo(Room)
@@ -61,6 +67,7 @@ User.belongsToMany(Building, { as: "", through: "admins" })
 
 // 生成默认数据
 const { hash } = require("../utils/bcypt")
+const { Vistitor } = require("../model")
 async function createDefaultData() {
   // 创建一个学生用户
   const student = await User.create({

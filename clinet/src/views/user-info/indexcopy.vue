@@ -187,6 +187,8 @@
           <el-input
             v-model.trim="formData.phone"
             placeholder="请输入"
+            onkeyup="value=value.replace(/[^\d]/g,'')"
+            maxlength="11"
           ></el-input>
         </el-form-item>
         <el-form-item label="学院" required prop="college">

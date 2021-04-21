@@ -70,7 +70,7 @@ router.use("/api/evaluate", require("./routes/evaluate_router"))
 router.use("/api/record", require("./routes/record_router"))
 router.use("/api/cleaner", require("./routes/cleaner_router"))
 router.use("/api/repair", require("./routes/repair_router"))
-
+router.use("/api/visitor", require("./routes/visitor_router"))
 app.use(router.routes())
 
 app.listen(sysConfig.port)

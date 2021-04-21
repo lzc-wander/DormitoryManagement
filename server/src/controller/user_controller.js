@@ -13,8 +13,9 @@ module.exports = {
       where: { id: userId },
       attributes: { exclude: ["password", "deletedAt"] }
     })
-    // console.log('wadwqwq',student);
     const room = await student.getRoom()
+    // console.log('aaa',room);
+    
     const floor = await room.getFloor()
     const building = await floor.getBuilding()
     const getupProb = await RecordController.getUserProbability("getup", userId)
